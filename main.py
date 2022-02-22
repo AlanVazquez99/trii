@@ -1,6 +1,9 @@
+# Built-In
+from typing import Optional
+
 # Third Party
 import requests
-from fastapi import FastAPI
+from fastapi import FastAPI, Query, Request
 
 # Internal
 from trii.client import Client
@@ -11,11 +14,18 @@ logger = set_logger(__name__)
 app = FastAPI()
 client = Client("https://rickandmortyapi.com/api", "Rick and Morty API")
 
+
+@app.get("/{resource}/{id}")
 @app.get("/{resource}")
-async def read_item(resource: str):
-    logger.debug(f"{client.name}/{resource}")
-    return client.get(resource)
+async def get_resources(request: Request, resource: str, id: Optional[str] = Query("")):
+    query_params = request.query_params
+    route = f"{resource}/{id}?{query_params}"
+
+    logger.debug(route)
+    return client.get(route)
+
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="localhost", port=8000)
