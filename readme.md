@@ -30,6 +30,8 @@ It is basically a wrapper to the Rick & Morty public API (https://rickandmortyap
 ### Step 2:
 <img src="out/Step 2.gif"/>
 
+### Step 3:
+<img src="out/Step 3.gif"/>
 
 <br/>
 
