@@ -26,45 +26,26 @@ class UserBase(BaseModel):
 
 
 class UserLogin(UserBase):
-    password: str = Field(
-        ...,
-        min_length=8,
-        max_length=64
-    )
+    password: str = Field(..., min_length=8, max_length=64)
 
 
 class User(UserBase):
-    first_name: str = Field(
-        ...,
-        min_length=1,
-        max_length=50
-    )
-    last_name: str = Field(
-        ...,
-        min_length=1,
-        max_length=50
-    )
+    first_name: str = Field(..., min_length=1, max_length=50)
+    last_name: str = Field(..., min_length=1, max_length=50)
     birth_date: Optional[date] = Field(default=None)
 
 
 class UserRegister(User):
-    password: str = Field(
-        ...,
-        min_length=8,
-        max_length=64
-    )
+    password: str = Field(..., min_length=8, max_length=64)
 
 
 class Tweet(BaseModel):
     tweet_id: UUID = Field(...)
-    content: str = Field(
-        ...,
-        min_length=1,
-        max_length=256
-    )
+    content: str = Field(..., min_length=1, max_length=256)
     created_at: datetime = Field(default=datetime.now())
     updated_at: Optional[datetime] = Field(default=None)
     by: User = Field(...)
+
 
 # Path Operations
 
@@ -78,7 +59,7 @@ class Tweet(BaseModel):
     response_model=User,
     status_code=status.HTTP_201_CREATED,
     summary="Register a User",
-    tags=["Users"]
+    tags=["Users"],
 )
 def signup(user: UserRegister = Body(...)):
     """
@@ -114,10 +95,11 @@ def signup(user: UserRegister = Body(...)):
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Login a User",
-    tags=["Users"]
+    tags=["Users"],
 )
 def login():
     pass
+
 
 ### Show all users
 
@@ -127,7 +109,7 @@ def login():
     response_model=List[User],
     status_code=status.HTTP_200_OK,
     summary="Show all users",
-    tags=["Users"]
+    tags=["Users"],
 )
 def show_all_users():
     """
@@ -147,6 +129,7 @@ def show_all_users():
         results = json.loads(f.read())
         return results
 
+
 ### Show a user
 
 
@@ -155,10 +138,11 @@ def show_all_users():
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Show a User",
-    tags=["Users"]
+    tags=["Users"],
 )
 def show_a_user():
     pass
+
 
 ### Delete a user
 
@@ -168,10 +152,11 @@ def show_a_user():
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Delete a User",
-    tags=["Users"]
+    tags=["Users"],
 )
 def delete_a_user():
     pass
+
 
 ### Update a user
 
@@ -181,7 +166,7 @@ def delete_a_user():
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Update a User",
-    tags=["Users"]
+    tags=["Users"],
 )
 def update_a_user():
     pass
@@ -195,10 +180,11 @@ def update_a_user():
     response_model=List[Tweet],
     status_code=status.HTTP_200_OK,
     summary="Show all tweets",
-    tags=["Tweets"]
+    tags=["Tweets"],
 )
 def home():
     return {"Twitter API": "Working!"}
+
 
 ### Post a tweet
 
@@ -208,7 +194,7 @@ def home():
     response_model=Tweet,
     status_code=status.HTTP_201_CREATED,
     summary="Post a tweet",
-    tags=["Tweets"]
+    tags=["Tweets"],
 )
 def post(tweet: Tweet = Body(...)):
     """
@@ -241,6 +227,7 @@ def post(tweet: Tweet = Body(...)):
         f.write(json.dumps(results))
         return tweet
 
+
 ### Show a tweet
 
 
@@ -249,10 +236,11 @@ def post(tweet: Tweet = Body(...)):
     response_model=Tweet,
     status_code=status.HTTP_200_OK,
     summary="Show a tweet",
-    tags=["Tweets"]
+    tags=["Tweets"],
 )
 def show_a_tweet():
     pass
+
 
 ### Delete a tweet
 
@@ -262,10 +250,11 @@ def show_a_tweet():
     response_model=Tweet,
     status_code=status.HTTP_200_OK,
     summary="Delete a tweet",
-    tags=["Tweets"]
+    tags=["Tweets"],
 )
 def delete_a_tweet():
     pass
+
 
 ### Update a tweet
 
@@ -275,7 +264,7 @@ def delete_a_tweet():
     response_model=Tweet,
     status_code=status.HTTP_200_OK,
     summary="Update a tweet",
-    tags=["Tweets"]
+    tags=["Tweets"],
 )
 def update_a_tweet():
     pass
